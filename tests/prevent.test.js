@@ -33,6 +33,7 @@ const baseSample = {
 describe('PREVENT enhanced simplified equations', () => {
   it('calculates all five 10-year outcomes against the supplied workbook example', () => {
     const result = calculatePrevent(workbookExample);
+    expect(result.model).toBe('enhanced-simplified');
     expect(PREVENT_OUTCOMES).toHaveLength(5);
     expect(result.tenYear.cvd).toBeCloseTo(15.9308, 3);
     expect(result.tenYear.ascvd).toBeCloseTo(9.9867, 3);
@@ -66,9 +67,16 @@ describe('PREVENT enhanced simplified equations', () => {
 
   it('handles missing optional predictors using missingness indicators', () => {
     const result = calculatePrevent(baseSample);
+    expect(result.model).toBe('base-simplified');
     expect(result.predictors).toEqual({ uacr: false, hba1c: false, sdi: false });
-    expect(Number.isFinite(result.tenYear.cvd)).toBe(true);
-    expect(Number.isFinite(result.tenYear.stroke)).toBe(true);
+    expect(result.tenYear.cvd).toBeCloseTo(2.2052, 3);
+    expect(result.tenYear.ascvd).toBeCloseTo(1.4272, 3);
+    expect(result.tenYear.hf).toBeCloseTo(0.6945, 3);
+    expect(result.tenYear.chd).toBeCloseTo(0.6854, 3);
+    expect(result.tenYear.stroke).toBeCloseTo(0.7553, 3);
+    expect(result.thirtyYear.cvd).toBeCloseTo(15.6463, 3);
+    expect(result.thirtyYear.ascvd).toBeCloseTo(9.4228, 3);
+    expect(result.thirtyYear.hf).toBeCloseTo(6.1564, 3);
   });
 
   it('omits 30-year estimates for people older than 59', () => {
