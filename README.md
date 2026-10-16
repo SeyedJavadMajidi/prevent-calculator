@@ -21,8 +21,8 @@ npm run build
 - 10-year and (for ages 30–59) 30-year estimates.
 - Five outcomes: total CVD, ASCVD, heart failure, coronary heart disease, and stroke.
 - Female/male coefficients and validation for required inputs.
-- Enhanced simplified equations with optional UACR, HbA1c, and SDI predictors.
-- Missing-predictor indicators when optional measurements are not available.
+- Base simplified equations when no optional predictors are supplied; enhanced simplified equations when any UACR, HbA1c, or SDI value is entered.
+- Missing-predictor indicators for enhanced-model inputs that are not available.
 - Responsive RTL UI, CSV export, and client-side-only calculation.
 - GitHub Actions workflow for tests and production build.
 
