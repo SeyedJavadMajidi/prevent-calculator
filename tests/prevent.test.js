@@ -79,6 +79,13 @@ describe('PREVENT enhanced simplified equations', () => {
     expect(result.thirtyYear.hf).toBeCloseTo(6.1564, 3);
   });
 
+  it('switches to the enhanced model when one optional predictor is supplied', () => {
+    const result = calculatePrevent({ ...baseSample, uacr: 40 });
+    expect(result.model).toBe('enhanced-simplified');
+    expect(result.predictors).toEqual({ uacr: true, hba1c: false, sdi: false });
+    expect(Number.isFinite(result.tenYear.cvd)).toBe(true);
+  });
+
   it('omits 30-year estimates for people older than 59', () => {
     expect(calculatePrevent({ ...baseSample, age: 60 }).thirtyYear).toBeNull();
   });
