@@ -1,6 +1,7 @@
 // PREVENT simplified enhanced equations from the supplied supplementary workbook (Tables S12E and S12J).
 // These are simplified regression equations, not the licensed official AHA source-code implementation.
 import { PREVENT_COEFFICIENTS } from './prevent-coefficients.js';
+import { PREVENT_BASE_COEFFICIENTS } from './prevent-base-coefficients.js';
 
 export const PREVENT_OUTCOMES = [
   { key: 'cvd', label: 'Total cardiovascular disease', offset: 0 },
@@ -104,10 +105,12 @@ function score(coefficients, features, sex, outcome) {
   return 100 / (1 + Math.exp(-logit));
 }
 
-function calculateHorizon(input, horizon) {
+function calculateHorizon(input, horizon, enhanced) {
   validate(input, horizon);
   const features = featureMap(input);
-  const coefficients = PREVENT_COEFFICIENTS[horizon === 10 ? 'full10' : 'full30'];
+  const coefficientSet = enhanced ? PREVENT_COEFFICIENTS : PREVENT_BASE_COEFFICIENTS;
+  const modelKey = horizon === 10 ? (enhanced ? 'full10' : 'base10') : (enhanced ? 'full30' : 'base30');
+  const coefficients = coefficientSet[modelKey];
   return Object.fromEntries(PREVENT_OUTCOMES.map(outcome => [
     outcome.key,
     score(coefficients, features, input.sex, outcome),
@@ -117,12 +120,13 @@ function calculateHorizon(input, horizon) {
 export function calculatePrevent(input) {
   const x = { ...input };
   validate(x, 10);
-  const tenYear = calculateHorizon(x, 10);
-  const thirtyYear = Number(x.age) <= 59 ? calculateHorizon(x, 30) : null;
+  const enhanced = isProvided(x.uacr) || isProvided(x.hba1c) || isProvided(x.sdi);
+  const tenYear = calculateHorizon(x, 10, enhanced);
+  const thirtyYear = Number(x.age) <= 59 ? calculateHorizon(x, 30, enhanced) : null;
   return {
     tenYear,
     thirtyYear,
-    model: 'enhanced-simplified',
+    model: enhanced ? 'enhanced-simplified' : 'base-simplified',
     predictors: {
       uacr: isProvided(x.uacr),
       hba1c: isProvided(x.hba1c),
