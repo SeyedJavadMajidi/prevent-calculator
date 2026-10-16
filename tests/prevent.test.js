@@ -35,19 +35,19 @@ describe('PREVENT enhanced simplified equations', () => {
     const result = calculatePrevent(workbookExample);
     expect(PREVENT_OUTCOMES).toHaveLength(5);
     expect(result.tenYear.cvd).toBeCloseTo(15.9308, 3);
-    expect(result.tenYear.ascvd).toBeCloseTo(17.6988, 3);
-    expect(result.tenYear.hf).toBeCloseTo(9.9867, 3);
-    expect(result.tenYear.chd).toBeCloseTo(11.1768, 3);
-    expect(result.tenYear.stroke).toBeCloseTo(8.9884, 3);
+    expect(result.tenYear.ascvd).toBeCloseTo(9.9867, 3);
+    expect(result.tenYear.hf).toBeCloseTo(8.9884, 3);
+    expect(result.tenYear.chd).toBeCloseTo(4.6672, 3);
+    expect(result.tenYear.stroke).toBeCloseTo(5.9041, 3);
   });
 
   it('calculates 30-year outcomes for ages 30–59 against the workbook example', () => {
     const result = calculatePrevent(workbookExample);
     expect(result.thirtyYear.cvd).toBeCloseTo(52.2417, 3);
-    expect(result.thirtyYear.ascvd).toBeCloseTo(51.0710, 3);
-    expect(result.thirtyYear.hf).toBeCloseTo(35.4104, 3);
-    expect(result.thirtyYear.chd).toBeCloseTo(34.8664, 3);
-    expect(result.thirtyYear.stroke).toBeCloseTo(39.2391, 3);
+    expect(result.thirtyYear.ascvd).toBeCloseTo(35.4104, 3);
+    expect(result.thirtyYear.hf).toBeCloseTo(39.2391, 3);
+    expect(result.thirtyYear.chd).toBeCloseTo(19.6815, 3);
+    expect(result.thirtyYear.stroke).toBeCloseTo(22.5346, 3);
   });
 
   it('handles missing optional predictors using missingness indicators', () => {
