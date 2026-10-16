@@ -50,6 +50,20 @@ describe('PREVENT enhanced simplified equations', () => {
     expect(result.thirtyYear.stroke).toBeCloseTo(22.5346, 3);
   });
 
+  it('selects the male-specific coefficients from the same workbook example', () => {
+    const result = calculatePrevent({ ...workbookExample, sex: 'male' });
+    expect(result.tenYear.cvd).toBeCloseTo(17.6988, 3);
+    expect(result.tenYear.ascvd).toBeCloseTo(11.1768, 3);
+    expect(result.tenYear.hf).toBeCloseTo(11.4929, 3);
+    expect(result.tenYear.chd).toBeCloseTo(6.0490, 3);
+    expect(result.tenYear.stroke).toBeCloseTo(5.8149, 3);
+    expect(result.thirtyYear.cvd).toBeCloseTo(51.0710, 3);
+    expect(result.thirtyYear.ascvd).toBeCloseTo(34.8664, 3);
+    expect(result.thirtyYear.hf).toBeCloseTo(42.1568, 3);
+    expect(result.thirtyYear.chd).toBeCloseTo(21.3161, 3);
+    expect(result.thirtyYear.stroke).toBeCloseTo(20.0888, 3);
+  });
+
   it('handles missing optional predictors using missingness indicators', () => {
     const result = calculatePrevent(baseSample);
     expect(result.predictors).toEqual({ uacr: false, hba1c: false, sdi: false });
