@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { font-family: Vazirmatn, Tahoma, sans-serif; color-scheme: light; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.field { width: 100%; border: 1px solid #e2e8f0; border-radius: .85rem; background: #fff; padding: .78rem .9rem; color: #0f172a; outline: none; transition: border-color .15s, box-shadow .15s; }
+.field:focus { border-color: #fb7185; box-shadow: 0 0 0 3px rgb(251 113 133 / .15); }
+.field:invalid { border-color: #fda4af; }
+::selection { background: #ffe4e6; color: #881337; }
