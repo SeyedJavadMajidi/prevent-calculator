@@ -58,6 +58,7 @@ const OUTCOMES = [
 ];
 const finite = (n) => Number.isFinite(Number(n));
 function validate(x, horizon) {
+  if (!['female','male'].includes(x.sex)) throw new Error('Sex must be female or male.');
   const ranges = {
     age:[30,79], sbp:[90,200], totalCholesterol:[130,320], hdl:[20,100],
     egfr:[15,140], bmi:[18.5,39.9]
