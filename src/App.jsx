@@ -185,6 +185,7 @@ export default function App() {
             <div className="text-sm text-slate-300">{activeOutcome.label}</div>
             {result ? <div className="mt-2 text-4xl font-extrabold">{result.tenYear[tab].toFixed(1)}<span className="mr-1 text-xl">٪</span></div> : <div className="mt-2 text-2xl font-bold text-slate-400">—</div>}
             <div className="mt-2 text-sm text-slate-400">ریسک تخمینی ۱۰ ساله</div>
+            {result && <div className="mt-3 inline-flex rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-200">{result.model === 'enhanced-simplified' ? 'مدل تکمیلی فعال' : 'مدل پایه فعال'}</div>}
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3">
             <div className="rounded-2xl bg-white/10 p-4"><div className="text-xs text-slate-300">۱۰ ساله</div><div className="mt-2 text-2xl font-bold">{result ? result.tenYear[tab].toFixed(1) + '٪' : '—'}</div></div>
